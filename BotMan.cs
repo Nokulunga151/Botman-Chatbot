@@ -32,7 +32,7 @@ namespace ChatBot
            foreach (char c in text)
            {
               Console.Write(c);
-              Thread.Sleep(5);
+              Thread.Sleep(5); //a pause to simulate typing
            }
 
            Console.ResetColor();
@@ -40,7 +40,7 @@ namespace ChatBot
             
         }
 
-        private void ShowTypingDots() // Method to show "typing dots" animation before BotMan responds
+        private void ShowTypingDots() // method to show "typing dots" animation before BotMan responds
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write($"{BotName} is typing");
@@ -56,14 +56,14 @@ namespace ChatBot
             Console.WriteLine();
         }
 
-        public void Respond(string input) // Main method to process user input and display BotMan's response
+        public void Respond(string input) // main method to process user input and display BotMan's response
 
         {
             string response = logic.ProcessInput(input, name, BotName);
 
             ShowTypingDots();
 
-            TypeLikeBotman(response);
+            TypeLikeBotman(response); //display response with typing effect
         }
     }
 }
