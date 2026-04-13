@@ -22,7 +22,8 @@ namespace ChatBot
         }
 
 
-        private void TypeLikeBotman(string text)
+        private void TypeLikeBotman(string text) // Method to simulate typing text effect, with a delay between characters
+
         {
             Console.ForegroundColor = ConsoleColor.DarkBlue;
 
