@@ -7,6 +7,7 @@ namespace ChatBot
 {
     internal class BotMan
     {
+        // Fields to store user name, bot name, and logic handler
         private string name;
         private string BotName;
         private LogicHandler logic;
