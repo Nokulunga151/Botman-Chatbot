@@ -12,7 +12,9 @@ namespace ChatBot
         private string BotName;
         private LogicHandler logic;
 
-        public BotMan(string name, string botName = "BotMan")
+        
+        public BotMan(string name, string botName = "BotMan")// Constructor initializes BotMan with a user name and optional bot name
+
         {
             this.name = name;
             this.logic = new LogicHandler();
