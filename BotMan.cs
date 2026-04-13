@@ -17,7 +17,7 @@ namespace ChatBot
 
         {
             this.name = name;
-            this.logic = new LogicHandler();
+            this.logic = new LogicHandler(); // create a new logic handler instance
             this.BotName = botName;
         }
 
