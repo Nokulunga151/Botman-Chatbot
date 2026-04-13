@@ -40,7 +40,7 @@ namespace ChatBot
             
         }
 
-        private void ShowTypingDots()
+        private void ShowTypingDots() // Method to show "typing dots" animation before BotMan responds
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write($"{BotName} is typing");
