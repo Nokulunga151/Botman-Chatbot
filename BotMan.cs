@@ -47,7 +47,8 @@ namespace ChatBot
 
             for (int i = 0; i < 3; i++)
             {
-                Thread.Sleep(450);
+                Thread.Sleep(450); // waiting time before printing each dot
+
                 Console.Write(".");
             }
 
@@ -55,7 +56,8 @@ namespace ChatBot
             Console.WriteLine();
         }
 
-        public void Respond(string input)
+        public void Respond(string input) // Main method to process user input and display BotMan's response
+
         {
             string response = logic.ProcessInput(input, name, BotName);
 
