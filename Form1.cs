@@ -1,0 +1,376 @@
+using BotmanChatBot;
+using Microsoft.VisualBasic;
+using System.Drawing.Text;
+using System.Media;
+using System.Runtime.InteropServices;
+using System.Web;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
+
+namespace BotmanChatbot
+{
+    public partial class Form1 : Form 
+    {
+        private Panel welcomePanel;
+        private Panel chatPanel;
+
+        private Label logoLabel;
+        private Label welcomeLabel;
+        private Button startButton;
+
+        private Panel inputPanel;
+        private RichTextBox inputBox;
+        private Button sendButton;
+        private FlowLayoutPanel messageContainer;
+
+        private BotMan botman;
+
+        private string name = "User";
+
+        public Form1()
+        {
+            InitializeComponent();
+
+            InitializeChatUI();
+        }
+
+        private void InitializeChatUI()
+        {
+            this.Text = "Botman";
+            this.Size = new Size(550, 750);
+            this.BackColor = Color.Black;
+
+
+            messageContainer = new FlowLayoutPanel
+            {
+                Dock = DockStyle.Fill,
+                AutoScroll = true,
+                FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
+                Padding = new Padding(10),
+                BackColor = Color.Black
+
+            };
+
+            inputPanel = new Panel
+            {
+                Dock = DockStyle.Bottom,
+                Height = 70,
+                BackColor = Color.White,
+                Padding = new Padding(10)
+            };
+
+            inputBox = new RichTextBox
+            {
+                Location = new Point(20, 15),
+                Size = new Size(370, 50),
+                Font = new Font("Segoe UI", 11),
+                BackColor = Color.DarkGray,
+                ForeColor = Color.White,
+                BorderStyle = BorderStyle.None,
+                Multiline = true,
+                ScrollBars = RichTextBoxScrollBars.Vertical
+            };
+
+            sendButton = new Button
+            {
+                Text = "\u2794",
+                Location = new Point(410, 15),
+                Size = new Size(70, 50),
+                BackColor = Color.DodgerBlue,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 16, FontStyle.Bold),
+                Cursor = Cursors.Hand
+            };
+
+            sendButton.FlatAppearance.BorderSize = 0;
+            sendButton.FlatAppearance.MouseOverBackColor = Color.DeepSkyBlue;
+
+            sendButton.Click += SendMessage;
+
+            inputBox.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter && !e.Shift)
+                {
+                    e.SuppressKeyPress = true;
+                    SendMessage(s, e);
+                }
+            };
+
+            inputPanel.Controls.Add(inputBox);
+            inputPanel.Controls.Add(sendButton);
+
+            this.Controls.Add(messageContainer);
+            this.Controls.Add(inputPanel);
+
+            messageContainer.Visible = false;
+            inputPanel.Visible = false;
+
+            CreateWelcomeScreen();
+            
+        } 
+        
+        private void CreateWelcomeScreen()
+        {
+            welcomePanel = new Panel
+            {
+                Dock = DockStyle.Fill,
+                BackColor = Color.Black
+            };
+
+            logoLabel = new Label
+            {
+                AutoSize = true,
+                Font = new Font("Consolas", 12, FontStyle.Bold),
+                ForeColor = Color.Yellow,
+                Location = new Point(250, 50),
+
+                Text = @"
+                 
+                 ================================================== Welcome =================================================
+                 
+                              .   .
+                              |\__|\
+                              |     \
+                              | 0__0 \
+                              | |  "" ]
+                          ____| ' - \___          IIIIII ,,  M     M
+                         /.----._____.-''\          II   ,   MM   MM
+                        //        _       \         II       M M M M
+                       //   .-. (~v~)    / |        II       M  M  M
+                      |'|  /\:  .--     /  \        II       M     M
+                     // |-/  \_/_______/\/~ |     IIIIII     M     M
+                    |/  \ |  []_|_|_|_]  \  |
+                    |  \ | \ |___     _\  ]_}
+                    |  | '-' /   ' . '  |             BBBBBBB     OOOOO   TTTTTTTT  M     M    AAAA    N    N
+                    |  |    /     /| :  |             B      B   O     O     TT     MM   MM   A    A   NN   N
+                    |  |    |    / | :  /\            BBBBBBB    O     O     TT     M M M M  A      A  N  N N
+                    |  |    /   /  |   /  \           B      B   O     O     TT     M  M  M  AAAAAAAA  N   NN
+                    |  |   |   /  /   |    \          BBBBBBB     OOOOO      TT     M     M  A      A  N    N
+                    \  |   |/\/  | /|/\     \
+                     \ |\|\|  |  |  / /\/\___\
+                      \|   |  /  | |__
+                           /  |  |____)
+                          |__/
+
+
+
+
+
+
+
+                 ========================================== Your Cybersecurity Mentor =======================================
+
+                  "
+
+            };
+
+            startButton = new Button
+            {
+                Text = "START",
+                Size = new Size(180, 60),
+                Location = new Point(1300, 700),
+
+                BackColor = Color.DodgerBlue,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat
+            };
+
+            startButton.FlatAppearance.BorderSize = 0;
+
+            startButton.Click += StartButton_Click;
+
+            welcomeLabel = new Label{
+                Text = "",
+                AutoSize = true,
+                ForeColor = Color.Yellow,
+                Font = new Font("Consolas", 12, FontStyle.Bold),
+                Location = new Point(850, 900)
+            };
+
+            welcomePanel.Controls.Add(logoLabel);
+            welcomePanel.Controls.Add(welcomeLabel);
+            welcomePanel.Controls.Add(startButton);
+
+            startButton.BringToFront();
+
+            this.Controls.Add(welcomePanel);
+
+            try
+            {
+                SoundPlayer player = new SoundPlayer("botman.intro_1.wav");
+                player.Play();
+            }
+            catch 
+            { 
+            }
+           
+        }
+
+        private void StartButton_Click(object sender, EventArgs e)
+        {
+            welcomePanel.Visible = false;
+
+            messageContainer.Visible = true;
+            inputPanel.Visible = true;
+
+            name = Interaction.InputBox("What is your name?", "Botman");
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                name = "User";
+            }
+
+            botman = new BotMan(name, this);
+
+            AddMessage($"Welcome {name}! I'm Botman. Type 'help' to see everything i can do for you.", true);
+        }
+
+
+
+        private void SendMessage(object sender, EventArgs e)
+        {
+           string userMessage = inputBox.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(userMessage))
+              return;
+
+            AddMessage(userMessage,false);
+
+
+            inputBox.Clear();
+
+            sendButton.Enabled = false;
+            inputBox.Enabled = false;
+
+            if (botman == null)
+            {
+                MessageBox.Show("Botman is null");
+                return;
+            }
+
+            Task.Run(() =>
+            {
+               string response = botman.GetResponse(userMessage);
+
+               Thread.Sleep(800);
+
+               this.Invoke(() =>
+               {
+                   AddMessage(response, true);
+                   sendButton.Enabled = true;
+                   inputBox.Enabled = true;
+                   inputBox.Focus();
+               });
+            });
+        }
+
+        public void AddMessage(string text, bool isBot)
+        {
+            Panel wrapper = new Panel
+            {
+                AutoSize = true,
+                Width = messageContainer.Width - 30,
+                Margin = new Padding(0, 3, 0, 3)
+
+            };
+
+            Label nameLabel = new Label
+            {
+                AutoSize = true,
+                Font = new Font("Segoe UI", 8, FontStyle.Bold),
+                ForeColor = Color.LightGray,
+                Text = isBot ? "BotMan" : name
+            };
+
+            wrapper.Controls.Add(nameLabel);
+
+            int maxWidth;
+
+            if (isBot)
+            {
+                maxWidth = 650;
+            }
+            else
+            {
+                maxWidth = 450;
+            }
+
+           Panel bubble = new Panel
+           {
+              AutoSize = true,
+              MaximumSize = new Size(maxWidth, 0),
+              Padding = new Padding(10),
+              Margin = new Padding(5),
+ 
+              BackColor = isBot
+                  ? Color.Blue
+                  : Color.ForestGreen
+           };
+
+           bubble.Paint += (s, e) =>
+           {
+               e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+           };
+
+
+           Label messageLabel = new Label
+           {
+              Text = text,
+              AutoSize = true,
+              MaximumSize = new Size(maxWidth - 20, 0),
+              Font = new Font("Segoe UI", 10),
+              ForeColor = Color.White,
+              BackColor = Color.Transparent,
+              Padding = new Padding(5)
+           };
+
+
+            bubble.Controls.Add(messageLabel);
+            bubble.Size = new Size(
+               messageLabel.Width + 24,
+               messageLabel.Height + 24
+
+            );
+
+
+
+            wrapper.Controls.Add(bubble);
+
+            nameLabel.Top = 0;
+
+            bubble.Top = nameLabel.Bottom + 3;
+
+            if (!isBot)
+            {
+               bubble.Left = wrapper.Width - bubble.Width - 20;
+
+                nameLabel.Left = bubble.Left;
+            }
+            else
+            {
+               bubble.Left = 5;
+
+               nameLabel.Left = 5;
+            }
+
+
+            Label timeLabel = new Label
+            { 
+               Text = DateTime.Now.ToString("HH:mm"),
+               Font = new Font("Segeo UI", 7),
+               ForeColor = Color.Gray,
+               AutoSize = true
+            };
+
+            timeLabel.Top = bubble.Bottom + 2;
+            timeLabel.Left = isBot ? 10 : bubble.Left;
+            wrapper.Controls.Add(timeLabel);
+
+
+            messageContainer.Controls.Add(wrapper);
+            messageContainer.ScrollControlIntoView(wrapper);
+        }
+
+    }
+}
