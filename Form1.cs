@@ -302,7 +302,7 @@ namespace BotmanChatbot
             });
         }
 
-        //creates and display message bubbles
+        //creates and display message bubbles 
         public void AddMessage(string text, bool isBot)
         {
             Panel wrapper = new Panel
