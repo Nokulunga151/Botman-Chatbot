@@ -396,7 +396,7 @@ namespace BotmanChatBot
                 memory.AddTopic("Malware");
             }
 
-            //Checks for 2fa topic
+            //Checks for 2fa topic 
             if (input.Contains("2fa") ||
                 input.Contains("two factor authentication"))
             {
@@ -406,7 +406,7 @@ namespace BotmanChatBot
             //Checks for safe browsing topic
             if (input.Contains("safe browsing"))
             {
-                memory.AddTopic("Safe browsing");
+                memory.AddTopic("Safe browsing"); 
             }
 
             //Checks for social engineering topic
