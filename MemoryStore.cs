@@ -83,7 +83,7 @@ namespace BotmanChatbot
 
                      Your name: {UserName}
                      Mood: {CurrentMood}
-                     Cybersecurity Interests: {topics}";
+                     Cybersecurity Interests: {topics}"; 
         }
     }
 }
