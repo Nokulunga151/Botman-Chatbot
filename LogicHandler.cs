@@ -410,7 +410,7 @@ namespace BotmanChatBot
             }
 
             //Checks for social engineering topic
-            if (input.Contains("social engineering"))
+            if (input.Contains("social engineering")) 
             {
                 memory.AddTopic("Social engineering");
             }
