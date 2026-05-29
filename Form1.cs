@@ -309,7 +309,7 @@ namespace BotmanChatbot
             {
                 AutoSize = true,
                 Width = messageContainer.Width - 30,
-                Margin = new Padding(0, 3, 0, 3)
+                Margin = new Padding(0, 3, 0, 3) 
 
             };
 
