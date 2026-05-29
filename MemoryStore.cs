@@ -71,7 +71,7 @@ namespace BotmanChatbot
 
         //Returns a summary of what he chatbot remembers about the user
         public string RecallSummary()
-        {
+        { 
             //Checks if topics exist
             string topics = FavouriteTopics.Count > 0
                             ? string.Join(",", FavouriteTopics)
