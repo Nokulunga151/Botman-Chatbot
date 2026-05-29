@@ -191,7 +191,7 @@ namespace BotmanChatbot
                 Size = new Size(180, 60),
                 Location = new Point(1300, 700),
 
-                BackColor = Color.LightGreen,
+                BackColor = Color.LightGreen, 
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat
             };
