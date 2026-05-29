@@ -8,38 +8,48 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace BotmanChatbot
 {
+    //Main GUI class for teh chatbot application
     public partial class Form1 : Form  
     {
+        //Panels used for welcome screen and chat layout
         private Panel welcomePanel;
         private Panel chatPanel;
 
+        //controls used on the welcome screen
         private Label logoLabel;
         private Label welcomeLabel;
         private Button startButton;
 
+        //controls used for chat functionality
         private Panel inputPanel;
         private RichTextBox inputBox;
         private Button sendButton;
         private FlowLayoutPanel messageContainer;
 
+        //creates BotMan object
         private BotMan botman;
 
+        //Stores the users name
         private string name = "User";
 
+        //constructor for the form
         public Form1()
         {
             InitializeComponent();
 
+            //initialises the custom chatbot UI
             InitializeChatUI();
         }
 
+        //this method creates and styles the chatbot interface
         private void InitializeChatUI()
         {
+            //form setting
             this.Text = "Botman";
             this.Size = new Size(550, 750);
             this.BackColor = Color.Black;
 
-
+            //container used to display chat messages
             messageContainer = new FlowLayoutPanel
             {
                 Dock = DockStyle.Fill,
@@ -51,6 +61,7 @@ namespace BotmanChatbot
 
             };
 
+            //panel containing the input box and send button
             inputPanel = new Panel
             {
                 Dock = DockStyle.Bottom,
@@ -59,6 +70,7 @@ namespace BotmanChatbot
                 Padding = new Padding(10)
             };
 
+            //Textbox where the user types messages
             inputBox = new RichTextBox
             {
                 Location = new Point(20, 15),
@@ -71,6 +83,7 @@ namespace BotmanChatbot
                 ScrollBars = RichTextBoxScrollBars.Vertical
             };
 
+            //send button
             sendButton = new Button
             {
                 Text = "\u2794",
@@ -83,12 +96,12 @@ namespace BotmanChatbot
                 Cursor = Cursors.Hand
             };
 
-            sendButton.FlatAppearance.BorderSize = 0;
-            sendButton.FlatAppearance.MouseOverBackColor = Color.DeepSkyBlue;
+            sendButton.FlatAppearance.BorderSize = 0; //removes button border
+            sendButton.FlatAppearance.MouseOverBackColor = Color.DeepSkyBlue; //changes button color when hovering
+             
+            sendButton.Click += SendMessage; //send button click event
 
-            sendButton.Click += SendMessage;
-
-            inputBox.KeyDown += (s, e) =>
+            inputBox.KeyDown += (s, e) => //allows Enter key to send messages
             {
                 if (e.KeyCode == Keys.Enter && !e.Shift)
                 {
@@ -97,27 +110,33 @@ namespace BotmanChatbot
                 }
             };
 
+            //adds contolds to input panel
             inputPanel.Controls.Add(inputBox);
             inputPanel.Controls.Add(sendButton);
 
+            //adds controls to form
             this.Controls.Add(messageContainer);
             this.Controls.Add(inputPanel);
 
+            //hides chat until welcome screen starts
             messageContainer.Visible = false;
             inputPanel.Visible = false;
 
+            //creates the welcome screen
             CreateWelcomeScreen();
             
         } 
         
-        private void CreateWelcomeScreen()
+        private void CreateWelcomeScreen() //creates the welcome screen shown when the application starts
         {
+            //welcome panel settings
             welcomePanel = new Panel
             {
                 Dock = DockStyle.Fill,
                 BackColor = Color.Black
             };
 
+            //ASCII art logo label
             logoLabel = new Label
             {
                 AutoSize = true,
@@ -165,13 +184,14 @@ namespace BotmanChatbot
 
             };
 
+            //start button
             startButton = new Button
             {
                 Text = "START",
                 Size = new Size(180, 60),
                 Location = new Point(1300, 700),
 
-                BackColor = Color.DodgerBlue,
+                BackColor = Color.LightGreen,
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat
             };
