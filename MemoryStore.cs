@@ -73,7 +73,7 @@ namespace BotmanChatbot
         public string RecallSummary()
         { 
             //Checks if topics exist
-            string topics = FavouriteTopics.Count > 0
+            string topics = FavouriteTopics.Count > 0 
                             ? string.Join(",", FavouriteTopics)
                             : "No cybersecurity interests detected yet";
 
