@@ -12,13 +12,14 @@ namespace BotmanChatBot
     internal class LogicHandler
     {
 
-        private MemoryStore memory;
-        private Sentiment sentiment;
+        private MemoryStore memory; //Creates a MemoryStore object used for storing user information
+        private Sentiment sentiment; //Creates a Sentiment object used for mood detection
 
+        //Constructor used to initialise objects
         public LogicHandler()
         {
-            memory = new MemoryStore();
-            sentiment = new Sentiment();
+            memory = new MemoryStore(); //Initialises memory system
+            sentiment = new Sentiment(); //Intialises sentiment detection system
         }
 
         //Method that matched user input to specific keywords and returns responses based on thosed keywords
@@ -31,60 +32,65 @@ namespace BotmanChatBot
                 return $"UHM? I didn't quite get that could you please enter something else";
             }
 
-            memory.AddConversation(input);
+            memory.AddConversation(input); //Stores the user message in conversation history
 
             //converts input to lowercase for case-sensitive matching
             input = input.ToLower();
 
-            memory.UserName = name;
-            string currentMood = sentiment.DetectSentiment(input);
-            memory.CurrentMood = currentMood;
-            DetectTopics(input);
+            memory.UserName = name; //Stores user name in memory
+            string currentMood = sentiment.DetectSentiment(input); // detects user mood
+            memory.CurrentMood = currentMood; //Stores the detected mood
+            DetectTopics(input); //Detects cybersecurity topics form the input
 
-
+            //Checks if the user asks what the bot remembers 
             if(input.Contains("What do you remember about me?"))
             {
                 return memory.RecallSummary();
             }
 
+            //Checks if the user asks about favourite topics
             if (input.Contains("what topics do i like?"))
             {
+                //Checks if no topics have been stored yet
                 if (memory.FavouriteTopics.Count == 0)
                 {
                     return "I haven't learned enough about your interests yet.";
                 }
 
+                //Returns stored cybersecurity topics
                 return $"You seem interested in these cyber security topics: " +
                        $"{string.Join("\n ", memory.FavouriteTopics)}";
             }
 
-
+            //Checks if the user asks about previous topics discussed
             if (input.Contains("what did i ask before?"))
             {
+                //Checks if too few topics exist
                 if (memory.FavouriteTopics.Count <= 1)
                 {
                     return "You haven't asked many questions yet.";
                 }
 
+                //Returns all stored cybersecurity topics
                 return $"Earlier you asked about topics such as:\n" +
                         string.Join("\n", memory.FavouriteTopics);
             }
 
 
 
-
+            //Sentiment response for worried mood
             if (currentMood == "Worried")
             {
                 return $"You seem alitle worried {name}. Cybersecurity can feel overwhelming, but learning about it is the first step toward staying safe online ";
             }
 
-
+            //Sentiment response for sad mood
             if (currentMood == "Sad")
             {
                 return $" It sounds like you are feeling down today {name}. If you would like we can focus on some cybersecurtiy topics together";
             }
 
-
+            //Sentiment response for happy
             if (currentMood == "Happy")
             {
                 return $" I like the enthusiasm {name}! Let's continue learning about cybersecurity";
@@ -363,41 +369,47 @@ namespace BotmanChatBot
             return $"I didn't quite get that {name}, could you ask about cybersecurity";
         }
 
-
+        //This method detects cybersecurity topics from user input
         private void DetectTopics(string input)
         {
+            //Checks for phishing topic
             if (input.Contains("phishing"))
             {
                 memory.AddTopic("Phishing");
             }
 
+            //Checks for password safety topic
             if (input.Contains("password"))
             {
                 memory.AddTopic("Password Safety");
             }
 
+            //Checks for priavcy topic
             if (input.Contains("privacy"))
             {
                 memory.AddTopic("Privacy");
             }
 
+            //Checks for malware topic
             if (input.Contains("malware"))
             {
                 memory.AddTopic("Malware");
             }
 
+            //Checks for 2fa topic
             if (input.Contains("2fa") ||
                 input.Contains("two factor authentication"))
             {
                 memory.AddTopic("Two-Factor Authentication");
             }
 
-
+            //Checks for safe browsing topic
             if (input.Contains("safe browsing"))
             {
                 memory.AddTopic("Safe browsing");
             }
 
+            //Checks for social engineering topic
             if (input.Contains("social engineering"))
             {
                 memory.AddTopic("Social engineering");
