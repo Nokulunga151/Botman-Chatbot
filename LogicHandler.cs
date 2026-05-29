@@ -391,7 +391,7 @@ namespace BotmanChatBot
             }
 
             //Checks for malware topic
-            if (input.Contains("malware"))
+            if (input.Contains("malware")) 
             {
                 memory.AddTopic("Malware");
             }
