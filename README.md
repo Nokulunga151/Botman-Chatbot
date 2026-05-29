@@ -23,6 +23,6 @@ This is a Chatbot named Botman. It educates users on cybersecurity. It teaches t
 
 
 ## CI Workflow Status
-![CI Status] (https://github.com/Nokulunga151/Botman-Chatbot/blob/main/.github/workflows/ci.yml)
+![CI Status] https://github.com/Nokulunga151/Botman-Chatbot/actions/runs/26640773901/workflow
 
 ## YouTube Video Demo
