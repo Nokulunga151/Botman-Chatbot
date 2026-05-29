@@ -14,7 +14,7 @@ This is a Chatbot named Botman. It educates users on cybersecurity. It teaches t
 ## Technologies Used
 - C#
 - .NET
-= GitHub Actions (CI)
+- GitHub Actions (CI)
 
 ## How to Run
 - Open project in Visual Studio
