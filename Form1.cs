@@ -313,7 +313,7 @@ namespace BotmanChatbot
 
             };
 
-            Label nameLabel = new Label
+            Label nameLabel = new Label 
             {
                 AutoSize = true,
                 Font = new Font("Segoe UI", 8, FontStyle.Bold),
