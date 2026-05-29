@@ -52,6 +52,7 @@ namespace BotmanChatbot
         {
             if (FavouriteTopics.Count == 0) 
             { 
+
                 return "";
             }
 
