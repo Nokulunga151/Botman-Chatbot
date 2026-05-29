@@ -25,6 +25,7 @@ namespace BotmanChatBot
             sentiment = new Sentiment(); //Intialises sentiment detection system
         }
 
+
         //Method that matched user input to specific keywords and returns responses based on thosed keywords
         public string ProcessInput(string input, string name, string botName)
         {
@@ -134,6 +135,7 @@ namespace BotmanChatBot
             }
 
 
+
             //the if statements help with kewyword recognition
             if (input.Contains("phishing"))//Phishing keyword
             {
@@ -177,9 +179,10 @@ namespace BotmanChatBot
             }
 
 
+
             else if (input.Contains("password"))//passowrd safety keyword
             {
-                lastTopic = "phishing";
+                lastTopic = "password";
 
                 return @$" {memory.GetPersonalisedOpener()} Password safety is something everyone should know, I'm glad you aksed about that. let me tell you
                  what it is and give you some insights on why it is important.
@@ -214,6 +217,7 @@ namespace BotmanChatBot
                 ";
 
             }
+
 
 
             else if (input.Contains("malware"))//malware keyword
@@ -252,6 +256,7 @@ namespace BotmanChatBot
                 ";
 
             }
+
 
 
             else if (input.Contains("safe browsing"))//safe browsing keyword
@@ -294,6 +299,7 @@ namespace BotmanChatBot
             }
 
 
+
             else if (input.Contains("social engineering"))//socila engineering keyword
             {
                 lastTopic = "social engineering";
@@ -328,6 +334,7 @@ namespace BotmanChatBot
             }
 
 
+
             else if (input.Contains("two-factor authentication") || input.Contains("2fa"))//2fa keyword
             {
                 lastTopic = "two-factor authentication";
@@ -352,6 +359,8 @@ namespace BotmanChatBot
                 ";
 
             }
+
+
 
             //These are some of the other keywords botman can resond to
             else if (input.Contains("hello") || input.Contains("hi"))
@@ -418,6 +427,8 @@ namespace BotmanChatBot
             return $"I didn't quite get that {name}, could you ask about cybersecurity";
         }
 
+
+
         //This method detects cybersecurity topics from user input
         private void DetectTopics(string input)
         {
@@ -433,11 +444,6 @@ namespace BotmanChatBot
                 memory.AddTopic("Password Safety");
             }
 
-            //Checks for priavcy topic
-            if (input.Contains("privacy"))
-            {
-                memory.AddTopic("Privacy");
-            }
 
             //Checks for malware topic
             if (input.Contains("malware")) 

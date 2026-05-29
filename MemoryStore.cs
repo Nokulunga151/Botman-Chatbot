@@ -77,6 +77,7 @@ namespace BotmanChatbot
                             ? string.Join(",", FavouriteTopics)
                             : "No cybersecurity interests detected yet";
 
+
             //returns stored information
             return $@"
                      Here's what i remember about you: 

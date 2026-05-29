@@ -15,10 +15,12 @@ namespace BotmanChatbot
         private Panel welcomePanel;
         private Panel chatPanel;
 
+
         //controls used on the welcome screen
         private Label logoLabel;
         private Label welcomeLabel;
         private Button startButton;
+
 
         //controls used for chat functionality
         private Panel inputPanel;
@@ -26,11 +28,14 @@ namespace BotmanChatbot
         private Button sendButton;
         private FlowLayoutPanel messageContainer;
 
+
         //creates BotMan object
         private BotMan botman;
 
+
         //Stores the users name
         private string name = "User";
+
 
         //constructor for the form
         public Form1()
@@ -41,6 +46,8 @@ namespace BotmanChatbot
             InitializeChatUI();
         }
 
+
+
         //this method creates and styles the chatbot interface
         private void InitializeChatUI()
         {
@@ -48,6 +55,7 @@ namespace BotmanChatbot
             this.Text = "Botman";
             this.Size = new Size(550, 750);
             this.BackColor = Color.Black;
+
 
             //container used to display chat messages
             messageContainer = new FlowLayoutPanel
@@ -61,6 +69,8 @@ namespace BotmanChatbot
 
             };
 
+
+
             //panel containing the input box and send button
             inputPanel = new Panel
             {
@@ -69,6 +79,8 @@ namespace BotmanChatbot
                 BackColor = Color.White,
                 Padding = new Padding(10)
             };
+
+
 
             //Textbox where the user types messages
             inputBox = new RichTextBox
@@ -83,6 +95,8 @@ namespace BotmanChatbot
                 ScrollBars = RichTextBoxScrollBars.Vertical
             };
 
+
+
             //send button
             sendButton = new Button
             {
@@ -95,6 +109,8 @@ namespace BotmanChatbot
                 Font = new Font("Segoe UI", 16, FontStyle.Bold),
                 Cursor = Cursors.Hand
             };
+
+
 
             sendButton.FlatAppearance.BorderSize = 0; //removes button border
             sendButton.FlatAppearance.MouseOverBackColor = Color.DeepSkyBlue; //changes button color when hovering
@@ -110,17 +126,22 @@ namespace BotmanChatbot
                 }
             };
 
+
+
             //adds contolds to input panel
             inputPanel.Controls.Add(inputBox);
             inputPanel.Controls.Add(sendButton);
+
 
             //adds controls to form
             this.Controls.Add(messageContainer);
             this.Controls.Add(inputPanel);
 
+
             //hides chat until welcome screen starts
             messageContainer.Visible = false;
             inputPanel.Visible = false;
+
 
             //creates the welcome screen
             CreateWelcomeScreen();
@@ -135,6 +156,7 @@ namespace BotmanChatbot
                 Dock = DockStyle.Fill,
                 BackColor = Color.Black
             };
+
 
             //ASCII art logo label
             logoLabel = new Label
@@ -184,6 +206,8 @@ namespace BotmanChatbot
 
             };
 
+
+
             //start button
             startButton = new Button  
             {
@@ -195,6 +219,8 @@ namespace BotmanChatbot
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat
             };
+
+
 
             //start button event
             startButton.FlatAppearance.BorderSize = 0;
@@ -209,15 +235,21 @@ namespace BotmanChatbot
                 Location = new Point(850, 900)
             };
 
+
+
             //adds controls too welcome panel
             welcomePanel.Controls.Add(logoLabel);
             welcomePanel.Controls.Add(welcomeLabel);
             welcomePanel.Controls.Add(startButton);
 
+
             startButton.BringToFront();
+
+
 
             //adds welcome panel to form
             this.Controls.Add(welcomePanel);
+
 
             try //Plays the voice recording when the application starts
             {
@@ -228,6 +260,7 @@ namespace BotmanChatbot
             { 
             }
            
+
         }
 
         //Starts the chatbot after the start button is clicked
@@ -236,18 +269,22 @@ namespace BotmanChatbot
             //Hides welcome screen
             welcomePanel.Visible = false;
 
+
             //Shows chat interface
             messageContainer.Visible = true;
             inputPanel.Visible = true;
 
+
             //asks user for their name
             name = Interaction.InputBox("What is your name?", "Botman");
+
 
             //default name if nothing is entered
             if (string.IsNullOrWhiteSpace(name))
             {
                 name = "User";
             }
+
 
             //created botman object
             botman = new BotMan(name, this);
@@ -276,12 +313,14 @@ namespace BotmanChatbot
             sendButton.Enabled = false;
             inputBox.Enabled = false;
 
+
             //checks if bot exists
             if (botman == null)
             {
                 MessageBox.Show("Botman is null");
                 return;
             }
+
 
             Task.Run(() =>
             {
@@ -314,6 +353,8 @@ namespace BotmanChatbot
 
             };
 
+
+
             //Label for the senders name 
             Label nameLabel = new Label 
             {
@@ -322,6 +363,8 @@ namespace BotmanChatbot
                 ForeColor = Color.LightGray,
                 Text = isBot ? "BotMan" : name
             };
+
+
 
             wrapper.Controls.Add(nameLabel);
 
@@ -337,6 +380,8 @@ namespace BotmanChatbot
                 maxWidth = 450;
             }
 
+
+
             //Panel representing the message bubble
            Panel bubble = new Panel
            {
@@ -350,11 +395,15 @@ namespace BotmanChatbot
                   : Color.ForestGreen
            };
 
+
+
             //Smooth out bubble edges when painting
            bubble.Paint += (s, e) =>
            {
                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
            };
+
+
 
             //label for teh actual message text
            Label messageLabel = new Label
@@ -368,6 +417,8 @@ namespace BotmanChatbot
               Padding = new Padding(5)
            };
 
+
+
             //add messge text to bubble and size the bubble accordingly
             bubble.Controls.Add(messageLabel);
             bubble.Size = new Size(
@@ -377,6 +428,7 @@ namespace BotmanChatbot
             );
 
 
+
             //add bubble to wrapper
             wrapper.Controls.Add(bubble);
 
@@ -384,6 +436,7 @@ namespace BotmanChatbot
             nameLabel.Top = 0;
 
             bubble.Top = nameLabel.Bottom + 3;
+
 
             //align bubble and name depending on the sender
             if (!isBot)
@@ -399,6 +452,8 @@ namespace BotmanChatbot
                nameLabel.Left = 5;
             }
 
+
+
             //Timestamp label for when the message was sent
             Label timeLabel = new Label
             { 
@@ -408,6 +463,8 @@ namespace BotmanChatbot
                AutoSize = true
             };
 
+
+
             timeLabel.Top = bubble.Bottom + 2;
             timeLabel.Left = isBot ? 10 : bubble.Left;
             wrapper.Controls.Add(timeLabel);
@@ -415,6 +472,7 @@ namespace BotmanChatbot
             //Add wrapper to the main message container and scroll into view
             messageContainer.Controls.Add(wrapper);
             messageContainer.ScrollControlIntoView(wrapper);
+
         }
 
     }
