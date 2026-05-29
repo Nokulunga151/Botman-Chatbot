@@ -196,6 +196,7 @@ namespace BotmanChatbot
                 FlatStyle = FlatStyle.Flat
             };
 
+            //start button event
             startButton.FlatAppearance.BorderSize = 0;
 
             startButton.Click += StartButton_Click;
@@ -208,15 +209,17 @@ namespace BotmanChatbot
                 Location = new Point(850, 900)
             };
 
+            //adds controls too welcome panel
             welcomePanel.Controls.Add(logoLabel);
             welcomePanel.Controls.Add(welcomeLabel);
             welcomePanel.Controls.Add(startButton);
 
             startButton.BringToFront();
 
+            //adds welcome panel to form
             this.Controls.Add(welcomePanel);
 
-            try
+            try //Plays the voice recording when the application starts
             {
                 SoundPlayer player = new SoundPlayer("botman.intro_1.wav");
                 player.Play();
@@ -227,42 +230,53 @@ namespace BotmanChatbot
            
         }
 
+        //Starts the chatbot after the start button is clicked
         private void StartButton_Click(object sender, EventArgs e)
         {
+            //Hides welcome screen
             welcomePanel.Visible = false;
 
+            //Shows chat interface
             messageContainer.Visible = true;
             inputPanel.Visible = true;
 
+            //asks user for their name
             name = Interaction.InputBox("What is your name?", "Botman");
 
+            //default name if nothing is entered
             if (string.IsNullOrWhiteSpace(name))
             {
                 name = "User";
             }
 
+            //created botman object
             botman = new BotMan(name, this);
 
+            //Displays weclome message to user
             AddMessage($"Welcome {name}! I'm Botman. Type 'help' to see everything i can do for you.", true);
         }
 
 
-
+        //Handles sending messages
         private void SendMessage(object sender, EventArgs e)
         {
+            //gets user message
            string userMessage = inputBox.Text.Trim();
 
+            //checks if message is empty
             if (string.IsNullOrWhiteSpace(userMessage))
               return;
 
-            AddMessage(userMessage,false);
+            AddMessage(userMessage,false); //displays user message
 
 
-            inputBox.Clear();
+            inputBox.Clear(); //clears the input box
 
+            //disables controls while bot responds
             sendButton.Enabled = false;
             inputBox.Enabled = false;
 
+            //checks if bot exists
             if (botman == null)
             {
                 MessageBox.Show("Botman is null");
@@ -277,7 +291,10 @@ namespace BotmanChatbot
 
                this.Invoke(() =>
                {
+                   //displays bot respose
                    AddMessage(response, true);
+
+                   //re-enables controls
                    sendButton.Enabled = true;
                    inputBox.Enabled = true;
                    inputBox.Focus();
@@ -285,6 +302,7 @@ namespace BotmanChatbot
             });
         }
 
+        //creates and display message bubbles
         public void AddMessage(string text, bool isBot)
         {
             Panel wrapper = new Panel

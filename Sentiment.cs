@@ -4,6 +4,7 @@ using System.Text;
 
 namespace BotmanChatbot
 {
+    //this class detects the users mood/sentiment form their message
     internal class Sentiment
     {
         public string DetectSentiment(string input)
