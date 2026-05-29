@@ -8,7 +8,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace BotmanChatbot
 {
-    //Main GUI class for teh chatbot application
+    //Main GUI class for the chatbot application
     public partial class Form1 : Form  
     {
         //Panels used for welcome screen and chat layout
@@ -303,8 +303,9 @@ namespace BotmanChatbot
         }
 
         //creates and display message bubbles 
-        public void AddMessage(string text, bool isBot)
+        public void AddMessage(string text, bool isBot) //Creates and displays message bubbls in the chat UI
         {
+            //Wrapper pane to hold the name, bubble and timestamp
             Panel wrapper = new Panel
             {
                 AutoSize = true,
@@ -313,6 +314,7 @@ namespace BotmanChatbot
 
             };
 
+            //Label for the senders name 
             Label nameLabel = new Label 
             {
                 AutoSize = true,
@@ -323,6 +325,7 @@ namespace BotmanChatbot
 
             wrapper.Controls.Add(nameLabel);
 
+            //set maximum bubbble width dependind on sender
             int maxWidth;
 
             if (isBot)
@@ -334,6 +337,7 @@ namespace BotmanChatbot
                 maxWidth = 450;
             }
 
+            //Panel representing the message bubble
            Panel bubble = new Panel
            {
               AutoSize = true,
@@ -346,12 +350,13 @@ namespace BotmanChatbot
                   : Color.ForestGreen
            };
 
+            //Smooth out bubble edges when painting
            bubble.Paint += (s, e) =>
            {
                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
            };
 
-
+            //label for teh actual message text
            Label messageLabel = new Label
            {
               Text = text,
@@ -363,7 +368,7 @@ namespace BotmanChatbot
               Padding = new Padding(5)
            };
 
-
+            //add messge text to bubble and size the bubble accordingly
             bubble.Controls.Add(messageLabel);
             bubble.Size = new Size(
                messageLabel.Width + 24,
@@ -372,13 +377,15 @@ namespace BotmanChatbot
             );
 
 
-
+            //add bubble to wrapper
             wrapper.Controls.Add(bubble);
 
+            //position the name label above the bubble
             nameLabel.Top = 0;
 
             bubble.Top = nameLabel.Bottom + 3;
 
+            //align bubble and name depending on the sender
             if (!isBot)
             {
                bubble.Left = wrapper.Width - bubble.Width - 20;
@@ -392,7 +399,7 @@ namespace BotmanChatbot
                nameLabel.Left = 5;
             }
 
-
+            //Timestamp label for when the message was sent
             Label timeLabel = new Label
             { 
                Text = DateTime.Now.ToString("HH:mm"),
@@ -405,7 +412,7 @@ namespace BotmanChatbot
             timeLabel.Left = isBot ? 10 : bubble.Left;
             wrapper.Controls.Add(timeLabel);
 
-
+            //Add wrapper to the main message container and scroll into view
             messageContainer.Controls.Add(wrapper);
             messageContainer.ScrollControlIntoView(wrapper);
         }
