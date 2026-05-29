@@ -15,6 +15,9 @@ namespace BotmanChatBot
         private MemoryStore memory; //Creates a MemoryStore object used for storing user information
         private Sentiment sentiment; //Creates a Sentiment object used for mood detection
 
+        private string lastTopic = "";
+
+
         //Constructor used to initialise objects
         public LogicHandler()
         {
@@ -97,10 +100,46 @@ namespace BotmanChatBot
             }
 
 
+
+            if (input.Contains("tell me more") ||
+                input.Contains("explain more") ||
+                input.Contains("continue") ||
+                input.Contains("more info"))
+            {
+                if (lastTopic == "phishing")
+                {
+                    return "Phishing attacks often use fake emails or websites to trick users into revealing passwords and personal information.";
+                }
+
+                else if (lastTopic == "password")
+                {
+                    return "Strong passwords should contain uppercase letters, lowercase letters, numbers, and symbols.";
+                }
+
+                else if (lastTopic == "malware")
+                {
+                    return "Malware can spread through unsafe downloads, infected USB devices, and malicious websites.";
+                }
+
+                else if (lastTopic == "two-factor authentication")
+                {
+                    return "Two-factor authentication adds an extra security layer by requiring a second verification step.";
+                }
+
+                else 
+                {
+                    return "Could you tell me which cybersecurity topic you want to know more about?";
+
+                }
+            }
+
+
             //the if statements help with kewyword recognition
             if (input.Contains("phishing"))//Phishing keyword
             {
-                return $@"{memory.GetPersonalisedOpener()} GREAT {name}! You're ready to learn about Phishing Attacks. Below are some of the things to
+                lastTopic = "phishing";
+
+                return $@"{memory.GetPersonalisedOpener()} {name} Below are some of the things to
                  know pertaining Phishing.
 
                  What is Phishing? 
@@ -140,6 +179,8 @@ namespace BotmanChatBot
 
             else if (input.Contains("password"))//passowrd safety keyword
             {
+                lastTopic = "phishing";
+
                 return @$" {memory.GetPersonalisedOpener()} Password safety is something everyone should know, I'm glad you aksed about that. let me tell you
                  what it is and give you some insights on why it is important.
                   
@@ -177,6 +218,8 @@ namespace BotmanChatBot
 
             else if (input.Contains("malware"))//malware keyword
             {
+                lastTopic = "malware";
+
                 return @$" {memory.GetPersonalisedOpener()} What is Malware?
                  Malware short for Malicious software is designed to harm or exploit your device.
 
@@ -213,6 +256,8 @@ namespace BotmanChatBot
 
             else if (input.Contains("safe browsing"))//safe browsing keyword
             {
+                lastTopic = "safe browsing";
+
                 return @$" {memory.GetPersonalisedOpener()} Great to see that you are interesed about safe browsingon the internet.
                  This could benefit you in the future.Here is some infomation to know 
                  safe browsing.
@@ -251,6 +296,8 @@ namespace BotmanChatBot
 
             else if (input.Contains("social engineering"))//socila engineering keyword
             {
+                lastTopic = "social engineering";
+
                 return @$" {memory.GetPersonalisedOpener()} What is Social Engineering?
                  Social  engineerng is a form of human hacking that exploits phsycological weaknesses rather than tecnical
                  vulnerabilities to achieve malicious goals.
@@ -283,6 +330,8 @@ namespace BotmanChatBot
 
             else if (input.Contains("two-factor authentication") || input.Contains("2fa"))//2fa keyword
             {
+                lastTopic = "two-factor authentication";
+
                 return @$" {memory.GetPersonalisedOpener()} TWO‑FACTOR AUTHENTICATION (2FA)
                  What is 2FA?
                  Two factor authentication(2FA) is a security method that requires users to provide two different forms of identification to verify 

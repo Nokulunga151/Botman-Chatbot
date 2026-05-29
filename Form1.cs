@@ -76,7 +76,7 @@ namespace BotmanChatbot
                 Location = new Point(20, 15),
                 Size = new Size(370, 50),
                 Font = new Font("Segoe UI", 11),
-                BackColor = Color.DarkGray,
+                BackColor = Color.Gray,
                 ForeColor = Color.White,
                 BorderStyle = BorderStyle.None,
                 Multiline = true,
@@ -89,7 +89,7 @@ namespace BotmanChatbot
                 Text = "\u2794",
                 Location = new Point(410, 15),
                 Size = new Size(70, 50),
-                BackColor = Color.DodgerBlue,
+                BackColor = Color.Blue,
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
                 Font = new Font("Segoe UI", 16, FontStyle.Bold),
@@ -191,7 +191,7 @@ namespace BotmanChatbot
                 Size = new Size(180, 60),
                 Location = new Point(1300, 700),
 
-                BackColor = Color.LightGreen, 
+                BackColor = Color.Blue, 
                 ForeColor = Color.White,
                 FlatStyle = FlatStyle.Flat
             };
@@ -402,7 +402,7 @@ namespace BotmanChatbot
             //Timestamp label for when the message was sent
             Label timeLabel = new Label
             { 
-               Text = DateTime.Now.ToString("HH:mm"),
+               Text = DateTime.Now.ToString("HH:mm"), 
                Font = new Font("Segeo UI", 7),
                ForeColor = Color.Gray,
                AutoSize = true
