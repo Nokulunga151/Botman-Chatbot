@@ -30,14 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             messageContainer = new FlowLayoutPanel();
+            HeaderPanel = new Panel();
+            LogoLabel = new Label();
             inputPanel = new Panel();
             sendButton = new Button();
             inputBox = new RichTextBox();
-            HeaderPanel = new Panel();
-            LogoLabel = new Label();
             messageContainer.SuspendLayout();
-            inputPanel.SuspendLayout();
             HeaderPanel.SuspendLayout();
+            inputPanel.SuspendLayout();
             SuspendLayout();
             // 
             // messageContainer
@@ -53,38 +53,6 @@
             messageContainer.TabIndex = 0;
             messageContainer.WrapContents = false;
             messageContainer.Paint += flowLayoutPanel1_Paint;
-            // 
-            // inputPanel
-            // 
-            inputPanel.BackColor = Color.Beige;
-            inputPanel.Controls.Add(sendButton);
-            inputPanel.Controls.Add(inputBox);
-            inputPanel.Dock = DockStyle.Bottom;
-            inputPanel.Location = new Point(0, 788);
-            inputPanel.Name = "inputPanel";
-            inputPanel.Size = new Size(1182, 65);
-            inputPanel.TabIndex = 1;
-            // 
-            // sendButton
-            // 
-            sendButton.Location = new Point(600, 7);
-            sendButton.Name = "sendButton";
-            sendButton.Size = new Size(94, 46);
-            sendButton.TabIndex = 3;
-            sendButton.Text = "➤";
-            sendButton.UseVisualStyleBackColor = true;
-            sendButton.Click += sendButton_Click;
-            // 
-            // inputBox
-            // 
-            inputBox.BackColor = Color.White;
-            inputBox.BorderStyle = BorderStyle.None;
-            inputBox.ForeColor = Color.Black;
-            inputBox.Location = new Point(124, 7);
-            inputBox.Name = "inputBox";
-            inputBox.Size = new Size(441, 46);
-            inputBox.TabIndex = 2;
-            inputBox.Text = "";
             // 
             // HeaderPanel
             // 
@@ -106,6 +74,38 @@
             LogoLabel.Text = resources.GetString("LogoLabel.Text");
             LogoLabel.Click += label1_Click;
             // 
+            // inputPanel
+            // 
+            inputPanel.BackColor = Color.Beige;
+            inputPanel.Controls.Add(sendButton);
+            inputPanel.Controls.Add(inputBox);
+            inputPanel.Dock = DockStyle.Bottom;
+            inputPanel.Location = new Point(0, 788);
+            inputPanel.Name = "inputPanel";
+            inputPanel.Size = new Size(1182, 65);
+            inputPanel.TabIndex = 1;
+            // 
+            // sendButton
+            // 
+            sendButton.Location = new Point(846, 7);
+            sendButton.Name = "sendButton";
+            sendButton.Size = new Size(94, 46);
+            sendButton.TabIndex = 3;
+            sendButton.Text = "➤";
+            sendButton.UseVisualStyleBackColor = true;
+            sendButton.Click += sendButton_Click;
+            // 
+            // inputBox
+            // 
+            inputBox.BackColor = Color.White;
+            inputBox.BorderStyle = BorderStyle.None;
+            inputBox.ForeColor = Color.Black;
+            inputBox.Location = new Point(124, 7);
+            inputBox.Name = "inputBox";
+            inputBox.Size = new Size(701, 46);
+            inputBox.TabIndex = 2;
+            inputBox.Text = "";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -116,9 +116,9 @@
             Name = "Form1";
             Text = "Botman Chatbot";
             messageContainer.ResumeLayout(false);
-            inputPanel.ResumeLayout(false);
             HeaderPanel.ResumeLayout(false);
             HeaderPanel.PerformLayout();
+            inputPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 

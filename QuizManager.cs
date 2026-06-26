@@ -16,6 +16,8 @@ namespace BotmanChatbot
 
             LoadQuestions();
 
+            ResetQuiz();
+
         }
 
         private void LoadQuestions()
@@ -136,56 +138,76 @@ namespace BotmanChatbot
 
             questions.Add(new QuizQuestion
             {
-                Question = "",
+                Question = "Using public wifi without a VPN is always safe",
                 Options = new string[]
                 {
+                    "True",
+                    "False"
 
                 },
 
-                CorrectAnswer = ,
-                Explanation = ""
+                CorrectAnswer = 1,
+                Explanation = "Public wifi is often unsecure, meaning attackers can intercept your traffic. A VPN encrypts your connection, protecting sensitive data"
 
             });
 
             questions.Add(new QuizQuestion
             {
-                Question = "",
+                Question = "What does the padlock icon in a browser indicate?",
                 Options = new string[]
                 {
-
+                    "The site is free to use",
+                    "The site is encypted with HTTPS",
+                    "The site has no ads",
+                    "The site is gvernment approved"
                 },
 
-                CorrectAnswer = ,
-                Explanation = ""
+                CorrectAnswer = 1,
+                Explanation = "The padlock shows taht the site uses HTTPS, which encrypts communication between your browser and the server"
 
             });
 
             questions.Add(new QuizQuestion
             {
-                Question = "",
+                Question = "Which of the following is an example of social engineering?",
                 Options = new string[]
                 {
+                    "A hacker exploiting a software bug",
+                    "A fake IT support call asking for your password",
+                    "A firewall blocking suspicious traffic",
+                    "An antivirus detecting malware"
 
                 },
 
-                CorrectAnswer = ,
-                Explanation = ""
+                CorrectAnswer = 1,
+                Explanation = "Socail engineering manipulate people, not systems. Pretending to be IT support is a classic example"
 
             });
 
             questions.Add(new QuizQuestion
             {
-                Question = "",
+                Question = "What is ransomeware designed to do?",
                 Options = new string[]
                 {
+                    "Encrypt files and demand payment",
+                    "Speed up your computer",
+                    "Protect against viruses",
+                    "Block pop-ups"
 
                 },
 
-                CorrectAnswer = ,
-                Explanation = ""
+                CorrectAnswer = 0,
+                Explanation = "Ransomware locks your files with encryption and demands moeny for the decryption key"
 
             });
         }
+
+        public void ResetQuiz()
+        {
+            currentQuestion = 0;
+            score = 0;
+        }
+
 
         public QuizQuestion GetCurrentQuestion()
         {
@@ -195,14 +217,29 @@ namespace BotmanChatbot
 
         public bool CheckAnswer(int answer)
         {
+            if (currentQuestion >= questions.Count)
+                return false;
+
+            QuizQuestion q = questions[currentQuestion];
+
             bool correct =
                 answer == questions[currentQuestion].CorrectAnswer;
 
-            if(correct) 
-            {
-                score++;
-            }
+
+            string feedback = correct
+                ? " Correct! " + q.Explanation
+                : "Incorrect. " + q.Explanation;
+
+            if (correct)  score++;
+            
             return correct; 
+        }
+
+        public string GetExplanation()
+        {
+            if (currentQuestion < questions.Count)
+                return questions[currentQuestion].Explanation;
+            return "";
         }
 
 
@@ -215,6 +252,11 @@ namespace BotmanChatbot
         public bool QuizFinished()
         {
             return currentQuestion >= questions.Count;
+        }
+
+        public int TotalQuestions
+        {
+            get { return questions.Count; }
         }
 
 

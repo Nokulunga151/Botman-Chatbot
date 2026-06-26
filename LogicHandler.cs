@@ -21,6 +21,9 @@ namespace BotmanChatBot
         private QuizManager quizManager;
         private ActivityLogger activityLogger;
 
+        private bool quizActive = false;
+        
+
 
         //Constructor used to initialise objects
         public LogicHandler()
@@ -429,6 +432,111 @@ namespace BotmanChatBot
                 return $@"You're very welcome {name}. Come back if you need more help:)";
 
             }
+
+
+            if (input.ToLower().StartsWith("add task"))
+            {
+                string taskName = input.Substring(8).Trim();
+                taskManager.AddTask(taskName, "");
+
+                return "Task Added successfully";
+            }
+
+            if (input.ToLower() == "show tasks")
+            {
+                List<TaskStorageHelper> tasks = taskManager.GetTasks();
+
+                string reply = "Your Tasks\n\n";
+
+                foreach (var task in tasks)
+                {
+                    reply += task.Title;
+
+                    if (task.IsComplete)
+                        reply += " ✅";
+
+                    reply += "\n";
+                }
+
+                return reply;
+            }
+
+            if (input.ToLower().StartsWith("delete task"))
+            {
+                int number = Convert.ToInt32(input.Substring(12));
+
+                taskManager.DeleteTask(number - 1);
+
+                return "Task deleted.";
+            }
+
+            if (input.ToLower().StartsWith("complete task"))
+            {
+                int number = Convert.ToInt32(input.Substring(14));
+
+                taskManager.MarkComplete(number - 1);
+
+                return "Task completed.";
+            }
+
+            if (input.ToLower() == "start quiz")
+            {
+                quizActive = true;
+                quizManager.ResetQuiz();
+
+                QuizQuestion q = quizManager.GetCurrentQuestion();
+                return q.Question +
+                       "\n\nA. " + q.Options[0] +
+                       "\nB. " + q.Options[1] +
+                       (q.Options.Length > 2 ? "\nC. " + q.Options[2] : "") +
+                       (q.Options.Length > 3 ? "\nD. " + q.Options[3] : "");
+
+            }
+            else if (quizActive)
+            {
+               
+                int answerIndex = -1;
+                switch (input.ToLower())
+                {
+                    case "a": answerIndex = 0; break; 
+                    case "b": answerIndex = 1; break;
+                    case "c": answerIndex = 2; break;
+                    case "d": answerIndex = 3; break;
+                    case "true": answerIndex = 0; break;
+                    case "false": answerIndex = 1; break;
+                }
+
+                if (answerIndex == -1)
+                {
+                    return "Please answer with A, B, C, D, True, or False.";
+                }
+
+                bool correct = quizManager.CheckAnswer(answerIndex);
+                string feedback = correct ? "Correct!" : "Incorrect!!!";
+                feedback += quizManager.GetExplanation();
+
+                
+                quizManager.NextQuestion();
+
+                if (!quizManager.QuizFinished())
+                {
+                    QuizQuestion nextQ = quizManager.GetCurrentQuestion();
+                    return feedback + "\n\nNext question:\n" +
+                           nextQ.Question +
+                           "\n\nA. " + nextQ.Options[0] +
+                           "\nB. " + nextQ.Options[1] +
+                           (nextQ.Options.Length > 2 ? "\nC. " + nextQ.Options[2] : "") +
+                           (nextQ.Options.Length > 3 ? "\nD. " + nextQ.Options[3] : "");
+                }
+                else
+                {
+                    quizActive = false;
+                    return feedback + $"\n\nQuiz complete! Your score: {quizManager.GetScore()}/{quizManager.TotalQuestions}";
+                }
+            }
+
+           
+
 
 
             //if user types something that doesn't contain any cybersecurity topics the bot provides

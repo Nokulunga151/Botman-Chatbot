@@ -34,7 +34,20 @@ namespace BotmanChatbot
             InitializeComponent();
 
             //initialises the custom chatbot UI
-            //InitializeChatUI();
+            InitializeChatUI();
+
+            CreateWelcomeScreen();
+
+            name = Interaction.InputBox("What is your name?", "BotMan");
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                name = "User";
+            }
+
+            botman = new BotMan(name, this);
+
+            AddMessage("Welcome! I'm Botman. Type 'help' to get started.", true);
         }
 
 
@@ -71,9 +84,10 @@ namespace BotmanChatbot
 
 
 
-        
+        private void CreateWelcomeScreen()
+        {
             //ASCII art logo label
-            logoLabel.Text = @"
+            LogoLabel.Text = @"
                  
                  ================================================== Welcome =================================================
                  
@@ -124,9 +138,9 @@ namespace BotmanChatbot
             {
             }
 
-            
+        }   
 
-        //Starts the chatbot after the start button is clicked
+        
        
 
 
@@ -196,7 +210,7 @@ namespace BotmanChatbot
             {
                 AutoSize = true,
                 Font = new Font("Segoe UI", 8, FontStyle.Bold),
-                ForeColor = Color.LightGray,
+                ForeColor = Color.Gray,
                 Text = isBot ? "BotMan" : name
             };
 
@@ -227,8 +241,8 @@ namespace BotmanChatbot
                 Margin = new Padding(5),
 
                 BackColor = isBot
-                   ? Color.Blue
-                   : Color.ForestGreen
+                   ? Color.White
+                   : Color.Green
             };
 
 
