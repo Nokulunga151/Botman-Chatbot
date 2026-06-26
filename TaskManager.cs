@@ -11,7 +11,7 @@ namespace BotmanChatbot
 
         public TaskManager()
         {
-            LoadTasks();
+            LoadTasks(); 
         } 
 
         public void AddTask(string title, string reminder)
