@@ -32,5 +32,6 @@ This is a Chatbot named Botman. It educates users on cybersecurity. It teaches t
 ![CI Status] https://github.com/Nokulunga151/Botman-Chatbot/actions/runs/26640773901/workflow
 
 ## YouTube Video Demo
-Link: https://www.youtube.com/watch?v=LeNSUOnrQKU
-Part3 Link : 
+- Link: https://www.youtube.com/watch?v=LeNSUOnrQKU
+- Part 3 Link: https://www.youtube.com/watch?v=eQ_pap7y07s
+ 
