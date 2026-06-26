@@ -19,7 +19,7 @@ namespace BotmanChatbot
 
         public string CurrentMood //Stores the users detected mood/sentiment
         {
-            get; set;
+            get; set; 
         }
 
         public List<string> ConversationHistory //Stores all previous user messages

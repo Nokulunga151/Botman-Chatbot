@@ -17,12 +17,20 @@ namespace BotmanChatBot
 
         private string lastTopic = "";
 
+        private TaskManager taskManager;
+        private QuizManager quizManager;
+        private ActivityLogger activityLogger;
+
 
         //Constructor used to initialise objects
         public LogicHandler()
         {
             memory = new MemoryStore(); //Initialises memory system
             sentiment = new Sentiment(); //Intialises sentiment detection system
+
+            taskManager = new TaskManager();
+            quizManager = new QuizManager();
+            activityLogger = new ActivityLogger();
         }
 
 

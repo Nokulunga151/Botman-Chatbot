@@ -9,24 +9,15 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 namespace BotmanChatbot
 {
     //Main GUI class for the chatbot application
-    public partial class Form1 : Form  
+    public partial class Form1 : Form
     {
         //Panels used for welcome screen and chat layout
-        private Panel welcomePanel;
+
         private Panel chatPanel;
 
 
-        //controls used on the welcome screen
-        private Label logoLabel;
-        private Label welcomeLabel;
-        private Button startButton;
+        //controls used on the welcome screen 
 
-
-        //controls used for chat functionality
-        private Panel inputPanel;
-        private RichTextBox inputBox;
-        private Button sendButton;
-        private FlowLayoutPanel messageContainer;
 
 
         //creates BotMan object
@@ -43,7 +34,7 @@ namespace BotmanChatbot
             InitializeComponent();
 
             //initialises the custom chatbot UI
-            InitializeChatUI();
+            //InitializeChatUI();
         }
 
 
@@ -56,65 +47,9 @@ namespace BotmanChatbot
             this.Size = new Size(550, 750);
             this.BackColor = Color.Black;
 
-
-            //container used to display chat messages
-            messageContainer = new FlowLayoutPanel
-            {
-                Dock = DockStyle.Fill,
-                AutoScroll = true,
-                FlowDirection = FlowDirection.TopDown,
-                WrapContents = false,
-                Padding = new Padding(10),
-                BackColor = Color.Black
-
-            };
-
-
-
-            //panel containing the input box and send button
-            inputPanel = new Panel
-            {
-                Dock = DockStyle.Bottom,
-                Height = 70,
-                BackColor = Color.White,
-                Padding = new Padding(10)
-            };
-
-
-
-            //Textbox where the user types messages
-            inputBox = new RichTextBox
-            {
-                Location = new Point(20, 15),
-                Size = new Size(370, 50),
-                Font = new Font("Segoe UI", 11),
-                BackColor = Color.Gray,
-                ForeColor = Color.White,
-                BorderStyle = BorderStyle.None,
-                Multiline = true,
-                ScrollBars = RichTextBoxScrollBars.Vertical
-            };
-
-
-
-            //send button
-            sendButton = new Button
-            {
-                Text = "\u2794",
-                Location = new Point(410, 15),
-                Size = new Size(70, 50),
-                BackColor = Color.Blue,
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 16, FontStyle.Bold),
-                Cursor = Cursors.Hand
-            };
-
-
-
             sendButton.FlatAppearance.BorderSize = 0; //removes button border
             sendButton.FlatAppearance.MouseOverBackColor = Color.DeepSkyBlue; //changes button color when hovering
-             
+
             sendButton.Click += SendMessage; //send button click event
 
             inputBox.KeyDown += (s, e) => //allows Enter key to send messages
@@ -127,46 +62,18 @@ namespace BotmanChatbot
             };
 
 
-
-            //adds contolds to input panel
-            inputPanel.Controls.Add(inputBox);
-            inputPanel.Controls.Add(sendButton);
-
-
-            //adds controls to form
-            this.Controls.Add(messageContainer);
-            this.Controls.Add(inputPanel);
-
-
             //hides chat until welcome screen starts
-            messageContainer.Visible = false;
-            inputPanel.Visible = false;
-
-
-            //creates the welcome screen
-            CreateWelcomeScreen();
+            messageContainer.Visible = true;
+            inputPanel.Visible = true;
             
-        } 
+
+        }
+
+
+
         
-        private void CreateWelcomeScreen() //creates the welcome screen shown when the application starts
-        {
-            //welcome panel settings
-            welcomePanel = new Panel
-            {
-                Dock = DockStyle.Fill,
-                BackColor = Color.Black
-            };
-
-
             //ASCII art logo label
-            logoLabel = new Label
-            {
-                AutoSize = true,
-                Font = new Font("Consolas", 12, FontStyle.Bold),
-                ForeColor = Color.Yellow,
-                Location = new Point(250, 50),
-
-                Text = @"
+            logoLabel.Text = @"
                  
                  ================================================== Welcome =================================================
                  
@@ -202,53 +109,10 @@ namespace BotmanChatbot
 
                  ========================================== Your Cybersecurity Mentor =======================================
 
-                  "
-
-            };
+                 ";
 
 
 
-            //start button
-            startButton = new Button  
-            {
-                Text = "START",
-                Size = new Size(180, 60),
-                Location = new Point(1300, 700),
-
-                BackColor = Color.Blue, 
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat
-            };
-
-
-
-            //start button event
-            startButton.FlatAppearance.BorderSize = 0;
-
-            startButton.Click += StartButton_Click;
-
-            welcomeLabel = new Label{
-                Text = "",
-                AutoSize = true,
-                ForeColor = Color.Yellow,
-                Font = new Font("Consolas", 12, FontStyle.Bold),
-                Location = new Point(850, 900)
-            };
-
-
-
-            //adds controls too welcome panel
-            welcomePanel.Controls.Add(logoLabel);
-            welcomePanel.Controls.Add(welcomeLabel);
-            welcomePanel.Controls.Add(startButton);
-
-
-            startButton.BringToFront();
-
-
-
-            //adds welcome panel to form
-            this.Controls.Add(welcomePanel);
 
 
             try //Plays the voice recording when the application starts
@@ -256,55 +120,27 @@ namespace BotmanChatbot
                 SoundPlayer player = new SoundPlayer("botman.intro_1.wav");
                 player.Play();
             }
-            catch 
-            { 
+            catch
+            {
             }
-           
 
-        }
+            
 
         //Starts the chatbot after the start button is clicked
-        private void StartButton_Click(object sender, EventArgs e)
-        {
-            //Hides welcome screen
-            welcomePanel.Visible = false;
-
-
-            //Shows chat interface
-            messageContainer.Visible = true;
-            inputPanel.Visible = true;
-
-
-            //asks user for their name
-            name = Interaction.InputBox("What is your name?", "Botman");
-
-
-            //default name if nothing is entered
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                name = "User";
-            }
-
-
-            //created botman object
-            botman = new BotMan(name, this);
-
-            //Displays weclome message to user
-            AddMessage($"Welcome {name}! I'm Botman. Type 'help' to see everything i can do for you.", true);
-        }
+       
 
 
         //Handles sending messages
         private void SendMessage(object sender, EventArgs e)
         {
             //gets user message
-           string userMessage = inputBox.Text.Trim();
+            string userMessage = inputBox.Text.Trim();
 
             //checks if message is empty
             if (string.IsNullOrWhiteSpace(userMessage))
-              return;
+                return;
 
-            AddMessage(userMessage,false); //displays user message
+            AddMessage(userMessage, false); //displays user message
 
 
             inputBox.Clear(); //clears the input box
@@ -324,20 +160,20 @@ namespace BotmanChatbot
 
             Task.Run(() =>
             {
-               string response = botman.GetResponse(userMessage);
+                string response = botman.GetResponse(userMessage);
 
-               Thread.Sleep(800);
+                Thread.Sleep(800);
 
-               this.Invoke(() =>
-               {
-                   //displays bot respose
-                   AddMessage(response, true);
+                this.Invoke(() =>
+                {
+                    //displays bot respose
+                    AddMessage(response, true);
 
-                   //re-enables controls
-                   sendButton.Enabled = true;
-                   inputBox.Enabled = true;
-                   inputBox.Focus();
-               });
+                    //re-enables controls
+                    sendButton.Enabled = true;
+                    inputBox.Enabled = true;
+                    inputBox.Focus();
+                });
             });
         }
 
@@ -349,14 +185,14 @@ namespace BotmanChatbot
             {
                 AutoSize = true,
                 Width = messageContainer.Width - 30,
-                Margin = new Padding(0, 3, 0, 3) 
+                Margin = new Padding(0, 3, 0, 3)
 
             };
 
 
 
             //Label for the senders name 
-            Label nameLabel = new Label 
+            Label nameLabel = new Label
             {
                 AutoSize = true,
                 Font = new Font("Segoe UI", 8, FontStyle.Bold),
@@ -383,39 +219,39 @@ namespace BotmanChatbot
 
 
             //Panel representing the message bubble
-           Panel bubble = new Panel
-           {
-              AutoSize = true,
-              MaximumSize = new Size(maxWidth, 0),
-              Padding = new Padding(10),
-              Margin = new Padding(5),
- 
-              BackColor = isBot
-                  ? Color.Blue
-                  : Color.ForestGreen
-           };
+            Panel bubble = new Panel
+            {
+                AutoSize = true,
+                MaximumSize = new Size(maxWidth, 0),
+                Padding = new Padding(10),
+                Margin = new Padding(5),
+
+                BackColor = isBot
+                   ? Color.Blue
+                   : Color.ForestGreen
+            };
 
 
 
             //Smooth out bubble edges when painting
-           bubble.Paint += (s, e) =>
-           {
-               e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-           };
+            bubble.Paint += (s, e) =>
+            {
+                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            };
 
 
 
             //label for teh actual message text
-           Label messageLabel = new Label
-           {
-              Text = text,
-              AutoSize = true,
-              MaximumSize = new Size(maxWidth - 20, 0),
-              Font = new Font("Segoe UI", 10),
-              ForeColor = Color.White,
-              BackColor = Color.Transparent,
-              Padding = new Padding(5)
-           };
+            Label messageLabel = new Label
+            {
+                Text = text,
+                AutoSize = true,
+                MaximumSize = new Size(maxWidth - 20, 0),
+                Font = new Font("Segoe UI", 10),
+                ForeColor = Color.Black,
+                BackColor = Color.Transparent,
+                Padding = new Padding(5)
+            };
 
 
 
@@ -441,26 +277,26 @@ namespace BotmanChatbot
             //align bubble and name depending on the sender
             if (!isBot)
             {
-               bubble.Left = wrapper.Width - bubble.Width - 20;
+                bubble.Left = wrapper.Width - bubble.Width - 20;
 
                 nameLabel.Left = bubble.Left;
             }
             else
             {
-               bubble.Left = 5;
+                bubble.Left = 5;
 
-               nameLabel.Left = 5;
+                nameLabel.Left = 5;
             }
 
 
 
             //Timestamp label for when the message was sent
             Label timeLabel = new Label
-            { 
-               Text = DateTime.Now.ToString("HH:mm"), 
-               Font = new Font("Segeo UI", 7),
-               ForeColor = Color.Gray,
-               AutoSize = true
+            {
+                Text = DateTime.Now.ToString("HH:mm"),
+                Font = new Font("Segoe UI", 7),
+                ForeColor = Color.Gray,
+                AutoSize = true
             };
 
 
@@ -475,5 +311,24 @@ namespace BotmanChatbot
 
         }
 
+        private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void sendButton_Click(object sender, EventArgs e)
+        {
+            SendMessage(sender, e);
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
