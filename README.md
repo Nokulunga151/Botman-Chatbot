@@ -9,12 +9,18 @@ This is a Chatbot named Botman. It educates users on cybersecurity. It teaches t
 - ASCII art UI
 - Audio introduction
 - Continuous conversation loop
-
+- Task creation for users to set reminders
+- Quiz that will text users on the knowlege of cybersecurity
 
 ## Technologies Used
 - C#
 - .NET
 - GitHub Actions (CI)
+
+## Prerequisites
+- Visula Studio 2026
+- .NET 10.0
+- Newtonsoft.Json Nuget package
 
 ## How to Run
 - Open project in Visual Studio
@@ -27,3 +33,4 @@ This is a Chatbot named Botman. It educates users on cybersecurity. It teaches t
 
 ## YouTube Video Demo
 Link: https://www.youtube.com/watch?v=LeNSUOnrQKU
+Part3 Link : 
