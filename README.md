@@ -9,7 +9,8 @@ This is a Chatbot named Botman. It educates users on cybersecurity. It teaches t
 - ASCII art UI
 - Audio introduction
 - Continuous conversation loop
-
+- Task creation for users to set reminders
+- Quiz that will text users on the knowlege of cybersecurity
 
 ## Technologies Used
 - C#
@@ -27,3 +28,4 @@ This is a Chatbot named Botman. It educates users on cybersecurity. It teaches t
 
 ## YouTube Video Demo
 Link: https://www.youtube.com/watch?v=LeNSUOnrQKU
+Part3 Link : 
