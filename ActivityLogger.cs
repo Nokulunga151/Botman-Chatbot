@@ -22,7 +22,7 @@ namespace BotmanChatbot
 
         public List<string> GetLogs()
         {
-            return logs;
+            return logs; 
         }
     }
 }
