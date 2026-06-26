@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace BotmanChatbot
-{
+{ 
     internal class ActivityLogger
     {
         private List<string> logs;
