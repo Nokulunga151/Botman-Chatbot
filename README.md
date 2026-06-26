@@ -17,6 +17,11 @@ This is a Chatbot named Botman. It educates users on cybersecurity. It teaches t
 - .NET
 - GitHub Actions (CI)
 
+## Prerequisites
+- Visula Studio 2026
+- .NET 10.0
+- Newtonsoft.Json Nuget package
+
 ## How to Run
 - Open project in Visual Studio
 - Build and run the application
