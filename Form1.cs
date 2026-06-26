@@ -16,7 +16,7 @@ namespace BotmanChatbot
         private Panel chatPanel;
 
 
-        //controls used on the welcome screen 
+        //controls used on the welcome screen  
 
 
 
